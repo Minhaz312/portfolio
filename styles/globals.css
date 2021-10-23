@@ -1,0 +1,120 @@
+.bg-custom-primary {
+  background-color: #15192a !important;
+}
+.bg-custom-secondary {
+  background-color: #1f263c !important;
+}
+.bg-lightPrimary {
+  background-color: #00d6d8 !important;
+}
+.primary-text-color {
+  color: #00d6d8 !important;
+}
+.bg-card {
+  background: #1f263c !important;
+}
+.banner {
+  position: relative;
+  height: 400px;
+  width: 100%;
+}
+p{
+  line-height: 1.6;
+  letter-spacing: 1.5px;
+}
+.banner-layout{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.skills {
+  transition: all 0.33s;
+  border: 1px solid transparent;
+  padding: 10px 16px;
+  margin: 5px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.skills:hover {
+  background-color: #15192a !important;
+  border: 1px solid rgb(255,255,255,0.5);
+}
+.charge-card {
+  list-style: none;
+  padding: 0;
+  transition: all 0.33s;
+}
+.charge-card:hover {
+  box-shadow: 1px 1px 5px #00d4d86e;
+}
+.charge-card li {
+  padding: 10px;
+  color: #00d6d8;
+}
+.charge-button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #15192a;
+  color: #00d6d8;
+  border: none;
+  outline: #00d6d8;
+  transition: 0.33s;
+}
+.charge-button:hover {
+  color: #15192a;
+  background-color: #00d4d86e;
+}
+.project-card {
+  position: relative !important;
+  overflow: hidden;
+}
+.project-details {
+  position: absolute !important;
+  top: 100%;
+  left: 0;
+  background: rgb(0,0,0,0.6);
+  height: 100%;
+  /* display: none; */
+  width: 100%;
+  text-align: center;
+  padding: 35px;
+  transition: all 0.33s;
+}
+.project-card:hover .project-details {
+  /* display: block; */
+  top: 0;
+}
+footer {
+  color: rgb(255,255,255,0.6) !important;
+}
+.footer-link a{
+  text-decoration: none;
+  margin: 10px;
+  display: block;
+  color: rgb(255,255,255,0.6) !important;
+  transition: all 0.33s;
+}
+.footer-link a:hover {
+  color: #00d6d8 !important;
+}
+
+
+
+
+@media screen and (max-width: 768px){
+  footer {
+      text-align: center !important;
+  }
+  .mx-md-auto {
+      margin-left: auto !important;
+      margin-right: auto !important;
+  }
+}
