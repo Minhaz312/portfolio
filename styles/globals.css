@@ -18,17 +18,17 @@
   height: 400px;
   width: 100%;
 }
-p{
+p {
   line-height: 1.6;
   letter-spacing: 1.5px;
 }
-.banner-layout{
+.banner-layout {
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background: rgb(0,0,0,0.5);
+  background: rgb(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +45,7 @@ p{
 }
 .skills:hover {
   background-color: #15192a !important;
-  border: 1px solid rgb(255,255,255,0.5);
+  border: 1px solid rgb(255, 255, 255, 0.5);
 }
 .charge-card {
   list-style: none;
@@ -80,7 +80,7 @@ p{
   position: absolute !important;
   top: 100%;
   left: 0;
-  background: rgb(0,0,0,0.6);
+  background: rgb(0, 0, 0, 0.6);
   height: 100%;
   /* display: none; */
   width: 100%;
@@ -93,28 +93,33 @@ p{
   top: 0;
 }
 footer {
-  color: rgb(255,255,255,0.6) !important;
+  color: rgb(255, 255, 255, 0.6) !important;
 }
-.footer-link a{
+.footer-link a {
   text-decoration: none;
   margin: 10px;
   display: block;
-  color: rgb(255,255,255,0.6) !important;
+  color: rgb(255, 255, 255, 0.6) !important;
   transition: all 0.33s;
 }
 .footer-link a:hover {
   color: #00d6d8 !important;
 }
 
-
-
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: 992px) {
+  .banner {
+    height: 300px;
+  }
+  .banner img {
+    height: 300px !important;
+  }
+}
+@media screen and (max-width: 768px) {
   footer {
-      text-align: center !important;
+    text-align: center !important;
   }
   .mx-md-auto {
-      margin-left: auto !important;
-      margin-right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
