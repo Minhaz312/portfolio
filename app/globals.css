@@ -1,0 +1,73 @@
+ @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --primary-color: #915EFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-bg: #050816;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  font-family: 'Lexend', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: var(--background-bg);
+  overflow-x: hidden;
+}
+.text-primary {
+  color: var(--primary-color);
+}
+.circle-shadow {
+  box-shadow: 1px 1px 10px var(--primary-color), 1px 1px 20px var(--primary-color), 1px 1px 30px var(--primary-color), 1px 1px 30px var(--primary-color), 1px 1px 30px var(--primary-color), 1px 1px 20px var(--primary-color),1px 1px 30px var(--primary-color);
+}
+
+.navbar-bg-gradient {
+  background: linear-gradient(180deg, rgba(145, 94, 255, 0.50) 0%, rgba(13, 15, 33, 0.40) 100%);
+backdrop-filter: blur(0px);
+}
+.bg-gradient {
+  background: linear-gradient(180deg, rgba(22, 12, 65, 0.00) 18.54%, #160C41 58.12%, rgba(22, 12, 65, 0.00) 100%);
+}
+.line-gradient {
+  background: linear-gradient(180deg, #915EFF 5.62%, rgba(5, 8, 22, 0.00) 100%);
+}
+.skill-item {
+  transition: 0.33s all;
+}
+.skill-item:hover {
+  filter: drop-shadow(0px 4px 26px #915EFF);
+}
+.skill-item div {
+  background: radial-gradient(58.85% 58.85% at 50.00% 46.35%, rgba(74, 43, 221, 0.48) 15.94%, rgba(22, 12, 65, 0.22) 70.10%, rgba(74, 41, 217, 0.80) 100%);
+}
+
+.nav-blur {
+  background: transparent !important;
+  backdrop-filter: blur(10px) !important;
+  }
+.primary-shadow {
+  box-shadow: 0px 0px 3px #915EFF;
+}
+
+
+/* Navbar gradient */
+/* background: linear-gradient(180deg, rgba(145, 94, 255, 0.50) 0%, rgba(13, 15, 33, 0.40) 100%);
+backdrop-filter: blur(0px); */
+
+/* About Gradient
+background: linear-gradient(180deg, rgba(22, 12, 65, 0.00) 18.54%, #160C41 58.12%, rgba(22, 12, 65, 0.00) 100%); */
+
+/* Down line gradient */
+/* background: linear-gradient(180deg, #915EFF 0%, #050816 81.77%); */
+
+/* Drop shadow for active skill by hover
+filter: drop-shadow(0px 4px 26px #915EFF); */

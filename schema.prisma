@@ -1,0 +1,48 @@
+datasource db {
+    url = env("MONGODB_URL")
+    provider = "mongodb"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Users {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    title String
+    slogan String
+    about String
+    email String @unique
+    mobile String
+    github String
+    facebook String
+    linkedin String
+    houseAddr String
+    resume String
+    password String
+    @@map("users")
+}
+
+model Skills {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
+    icon String
+    priority String
+    color String
+    @@map("skills")
+}
+
+model Projects {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    title String
+    desc String
+    priority String
+    thumbnile String
+    links String
+    technologies String
+    @@map("projects")
+}
+
+
+// user: prismatest
+// password: fjplneCCh7A7VSDE

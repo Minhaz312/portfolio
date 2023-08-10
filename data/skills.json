@@ -1,0 +1,12 @@
+[
+    {"id":1,"title":"html","image":"/images/html.png"},
+    {"id":2,"title":"css","image":"/images/css-3.png"},
+    {"id":3,"title":"Bootstrap","image":"/images/bootstrap-logo.png"},
+    {"id":4,"title":"Tailwindcss","image":"/images/tailwindcss-logo.svg"},
+    {"id":4,"title":"Tailwindcss","image":"/images/js.png"},
+    {"id":4,"title":"Tailwindcss","image":"/images/react.png"},
+    {"id":4,"title":"NextJS","image":"/images/nextjs-logo.png"},
+    {"id":4,"title":"Tailwindcss","image":"/images/node-js.png"},
+    {"id":4,"title":"Tailwindcss","image":"/images/expressjs.png"},
+    {"id":4,"title":"Tailwindcss","image":"/images/mongodb.png"}
+  ]
