@@ -3,11 +3,11 @@ import fs from "node:fs"
 import { Buffer } from "node:buffer";
 import { v4 as uuidv4 } from 'uuid';
 
+export const runtime = 'experimental-edge'
 export const config = {
     api:{
         bodyParser:false
     },
-    runtime: 'experimental-edge',
 }
 
 export async function POST(req) {
