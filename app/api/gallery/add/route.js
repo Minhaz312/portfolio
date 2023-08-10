@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs"
-import { Buffer } from "node:buffer";
+import {Buffer} from "node:buffer"
 import { v4 as uuidv4 } from 'uuid';
 
-export const runtime = 'experimental-edge'
-export const config = {
-    api:{
-        bodyParser:false
-    },
-}
 
 export async function POST(req) {
     try {
@@ -24,8 +18,8 @@ export async function POST(req) {
         if(imgExtn==="pdf"){
             fileExtension = "pdf"
         }
-        const file = Buffer.from(await image.arrayBuffer());
-        fs.writeFileSync(`${process.cwd()}/public/storage/${uniqueId}.${fileExtension}`,file)
+        // const file = Buffer.from(await image.arrayBuffer());
+        // fs.writeFileSync(`${process.cwd()}/public/storage/${uniqueId}.${fileExtension}`,file)
         return NextResponse.json({success:true,message:"Uploaded successfully"},{status:200})
    } catch (error) {
        return NextResponse.json({success:false,message:"Failed to upload"},{status:400})
