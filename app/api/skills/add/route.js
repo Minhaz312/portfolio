@@ -17,6 +17,7 @@ export async function POST(req){
             return res.json({success:false,message:"Invalid input given"},{status:400})
         }
     } catch (error) {
+        console.log("error: ",error)
         return res.json({success:false,message:"Invalid input given"},{status:500})
     }
 }

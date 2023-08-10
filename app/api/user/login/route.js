@@ -26,7 +26,7 @@ export async function POST(req) {
             }
         }
     } catch (error) {
-        console.log(error)
+        console.log("error: ",error)
         return NextResponse.json({success:false,token:null,message:"Failed to login"},{status:500});
     }
 }

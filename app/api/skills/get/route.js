@@ -5,7 +5,7 @@ export async function GET(){
         const result = await prisma.skills.findMany();
         return NextResponse.json({success:true,data:result},{status:200})
     } catch (error) {
-        console.log(error)
+        console.log("error: ",error)
         return NextResponse.json({success:false,data:[]},{status:500})
     }
 }

@@ -24,7 +24,7 @@ export async function POST(req){
             return res.json({success:false,message:"All field required"},{status:400})
         }
     } catch (error) {
-        console.log(error)
+        console.log("error: ",error)
         return res.json({success:false,message:"failed to add new project"},{status:500})
     }
 }

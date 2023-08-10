@@ -22,6 +22,7 @@ export async function POST(req) {
         fs.writeFileSync(`${process.cwd()}/public/storage/${uniqueId}.${fileExtension}`,file)
         return NextResponse.json({success:true,message:"Uploaded successfully"},{status:200})
    } catch (error) {
+        console.log("error: ",error)
        return NextResponse.json({success:false,message:"Failed to upload"},{status:400})
    }
 }

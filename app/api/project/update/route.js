@@ -32,6 +32,7 @@ export async function PUT(req){
         })
         return res.json({success:true,message:"Updated successfully"},{status:200})
     } catch (error) {
+        console.log("error: ",error)
         return res.json({success:false,message:"Failed to update"},{status:500})
     }
 }

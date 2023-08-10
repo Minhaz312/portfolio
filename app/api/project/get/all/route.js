@@ -5,6 +5,7 @@ export async function GET(){
         const projectList = await prisma.projects.findMany()
         return res.json({success:true,data:projectList},{status:200});
     } catch (error) {
+        console.log("error: ",error)
         return res.json({success:false,data:[]},{status:500});
     }
 }
