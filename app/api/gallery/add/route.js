@@ -3,7 +3,12 @@ import fs from "node:fs"
 import { Buffer } from "node:buffer";
 import { v4 as uuidv4 } from 'uuid';
 
-
+export const config = {
+    api:{
+        bodyParser:false
+    },
+    runtime: 'experimental-edge',
+}
 
 export async function POST(req) {
     try {
@@ -23,7 +28,6 @@ export async function POST(req) {
         fs.writeFileSync(`${process.cwd()}/public/storage/${uniqueId}.${fileExtension}`,file)
         return NextResponse.json({success:true,message:"Uploaded successfully"},{status:200})
    } catch (error) {
-        console.log("error: ",error)
        return NextResponse.json({success:false,message:"Failed to upload"},{status:400})
    }
 }
