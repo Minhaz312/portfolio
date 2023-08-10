@@ -20,11 +20,11 @@ export function middleware(req) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: ['/api/project/:path*','/api/skills/:path*','/api/gallery/:path*','/api/user/add','/api/user/get'],
-  // runtime: 'experimental-edge', // for Edge API Routes only
-  // unstable_allowDynamic: [
-  //   // allows a single file
-  //   '/middleware.js',
-  //   // use a glob to allow anything in the function-bind 3rd party module
-  //   '/node_modules/lodash/**',
-  // ],
+  runtime: 'experimental-edge', // for Edge API Routes only
+  unstable_allowDynamic: [
+    // allows a single file
+    '/middleware.js',
+    // use a glob to allow anything in the function-bind 3rd party module
+    '/node_modules/lodash/**',
+  ],
 }

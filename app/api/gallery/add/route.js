@@ -18,8 +18,9 @@ export async function POST(req) {
         if(imgExtn==="pdf"){
             fileExtension = "pdf"
         }
-        // const file = Buffer.from(await image.arrayBuffer());
-        // fs.writeFileSync(`${process.cwd()}/public/storage/${uniqueId}.${fileExtension}`,file)
+        
+        const file = Buffer.from(await image.arrayBuffer());
+        fs.writeFileSync(`${process.cwd()}/public/storage/${uniqueId}.${fileExtension}`,file)
         return NextResponse.json({success:true,message:"Uploaded successfully"},{status:200})
    } catch (error) {
        return NextResponse.json({success:false,message:"Failed to upload"},{status:400})
