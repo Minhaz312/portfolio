@@ -1,4 +1,5 @@
 import getParams from "@/helpers/getParams";
+import prisma from "@/prismaClient";
 import { NextRequest as req, NextResponse as res } from "next/server";
 export async function DELETE(req){
     try {

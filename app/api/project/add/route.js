@@ -1,6 +1,7 @@
 import has from "@/helpers/has";
 import { NextResponse as res } from "next/server";
 import { v4 as uuidv4 } from 'uuid';
+import prisma from "@/prismaClient";
 export async function POST(req){
     try {
         const body = await req.json()
