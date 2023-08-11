@@ -44,8 +44,14 @@ export default function Gallery() {
     }
 
     const handleUploadGalleryItem = e => {
-        const file = e.target.files[0];
+        let file = e.target.files[0];
         if(file){
+            const reader = new FileReader()
+            reader.onload = e =>{
+                file = e.target.result
+            }
+            reader.readAsArrayBuffer(file);
+            console.log("file type: ",typeof file)
             const formData = new FormData();
             formData.append("file",file);
             setActionLoading(true)
