@@ -12,7 +12,8 @@ export default function HeroText({title,slogan,resume}) {
 
   const handleDownloadResume = () => {
     setDownloading(true)
-    axios.get(`/storage/${resume}`,{responseType:"blob"}).then(res=>{
+    console.log("resume: ",resume)
+    axios.get(`/storage/resume/${resume}`,{responseType:"blob"}).then(res=>{
       console.log("res: ",res)
       const extension = res.data.type.split("/")[1]
       const src = URL.createObjectURL(res.data);

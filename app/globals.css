@@ -9,13 +9,11 @@
   --primary-color: #915EFF;
 }
 
-@media (prefers-color-scheme: dark) {
   :root {
     --background-bg: #050816;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
 
 body {
   font-family: 'Lexend', sans-serif;
