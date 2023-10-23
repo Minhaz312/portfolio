@@ -3,9 +3,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import ProjectCard from './ProjectCard'
 import Modal from './controle/Modal'
+import Image from 'next/image'
+import FadeY from './animated/fade/FadeY'
 
 
-export default function ProjectList({projectList}) {
+export default function ProjectList({projectList,ongoingProject}) {
   const modalRef = useRef(null)
   const [show, setShow] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -59,6 +61,57 @@ export default function ProjectList({projectList}) {
           <h1 className='text-center text-2xl md:text-5xl text-white font-bold'>My Projects</h1>
           <p className='text-[#9585B8] text-center tracking-wider md:w-[500px] mx-auto my-4'>Following projects showcases my skills and experience through real-world examples of my work</p>
           <motion.img initial={{width:0}} animate={{width:400,transformOrigin:"center center",transition:{duration:0.33}}} src='/images/horizontal-gradient-line.png' className='mx-auto my-3' />
+          {ongoingProject.length>0&&(
+            <FadeY duration={0.3} delay={0.01}>
+              <div className='w-full my-5 p-3 bg-[#151030]'>
+                <h2 className='text-white font-semibold text-xl text-center mb-5'>{ongoingProject[0].title}</h2>
+                <div className='w-full grid grid-cols-5 gap-3'>
+                  <div className='col-span-5 md:col-span-2'>
+                      <img src={`/storage/${ongoingProject[0].thumbnile}`} className='w-full sm:w-[60%] mx-auto md:w-full' />
+                  </div>
+                  <div className='col-span-5 md:col-span-3'>
+                      <p className='text-slate-300'>{ongoingProject[0].desc}</p>
+                      <div className='mt-3 flex items-center gap-x-2'>
+                        <a href={ongoingProject[0].links.split(",")[0]} target='_blank'>
+                          <img src='/images/github-icon.png' className='h-8 w-8 rounded-full' />
+                        </a>
+                        <a href={ongoingProject[0].links.split(",")[1]} target='_blank'>
+                          <img src='/images/view-icon.png' className='h-8 w-8 rounded-full' />
+                        </a>
+                      </div>
+                      <div className='flex items-center gap-1 flex-wrap mt-3'>
+                        <h5 className='text-slate-200 font-semibold text-lg mr-3'>Technologies:</h5>
+                          {ongoingProject[0].technologies.split(",").map((tech,i)=><p style={{color:tech.split("|")[1]}} className={``}>#{tech.split("|")[0]}</p>)}
+                      </div>
+                      <div>
+                        <h5 className='text-slate-200 font-semibold text-lg mb-3'>Features:</h5>
+                        {ongoingProject[0].features.split(",").map((item,i)=>{
+                          const feature = item.split("|")
+                          if(feature[0]==="done"){
+                            return <div className='flex items-center gap-x-3 mb-2'>
+                              <Image src='/images/done.png' height={20} width={20} />
+                              <p className='text-slate-300 font-semibold text-base'>{feature[1]}</p>
+                            </div>
+                          }
+                          if(feature[0]==="waiting"){
+                            return <div className='flex items-center gap-x-3 mb-2'>
+                              <Image src='/images/waiting.png' height={18} width={18} />
+                              <p className='text-slate-300 font-semibold text-base'>{feature[1]}</p>
+                            </div>
+                          }
+                          if(feature[0]==="pending"){
+                            return <div className='flex items-center gap-x-3 mb-2'>
+                              <Image src='/images/pending.png' height={18} width={18} />
+                              <p className='text-slate-300 font-semibold text-base'>{feature[1]}</p>
+                            </div>
+                          }
+                        })}
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </FadeY>
+          )}
           <div className='grid grid-cols-12 gap-3 justify-center'>
             {
               sortedList.map((item,i)=><ProjectCard key={i} delay={i*0.1} openModal={handleShowModal.bind(this,item)} project={item} />)

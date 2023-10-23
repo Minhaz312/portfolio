@@ -6,7 +6,7 @@ import RightToLeft from './animated/RightToLeft'
 
 export default function About({about}) {
   return (
-    <div className='bg-gradient mt-14 scroll-mt-32 md:mt-24' id="about">
+    <div className='bg-gradien mt-14 scroll-mt-32 md:mt-24' id="about">
       <div className='flex w-full mx-auto px-3 md:w-10/12 lg:w-10/12 xl:w-8/12 md:px-0 sm:px-5'>
           <StarLine double={true} />
           <div className='grid gap-y-5 md:gap-y-0 grid-cols-1 md:grid-cols-2'>
@@ -14,7 +14,7 @@ export default function About({about}) {
               <div className='flex items-center justify-center'>
                 <div>
                   <h1 className='text-2xl md:text-5xl text-white font-bold'>Who am i?</h1>
-                  <p className='mt-7 text-md text-left text-slate-400 sm:text-lg tracking-wider'>{about}</p>
+                  <p className='mt-7 text-md break-al text-left hyphens-none text-slate-200 sm:text-lg tracking-wider sm:text-justify sm:hyphens-auto'>{about}</p>
                 </div>
               </div>
             </LeftToRight>

@@ -4,8 +4,9 @@ import FadeY from './animated/fade/FadeY'
 import ReactConfetti from 'react-confetti'
 import axios from 'axios'
 import Link from 'next/link'
+import { BsLinkedin } from 'react-icons/bs'
 
-export default function HeroText({title,slogan,resume}) {
+export default function HeroText({title,slogan,resume,github,linkedin}) {
   const [congrates, setCongrates] = useState(false)
   const [downloading, setDownloading] = useState(false)
   const [size, setSize] = useState({height:1000,width:1000})
@@ -60,6 +61,16 @@ export default function HeroText({title,slogan,resume}) {
           <div className='flex gap-x-3 mt-8 justify-center sm:justify-start sm:mt-10'>
               <button className='bg-[url("/images/btn-background.svg")] bg-no-repeat px-5 py-2 text-white font-semibold rounded-3xl hover:opacity-80 transition' onClick={handleDownloadResume}>{downloading?"Downloading...":"Resume"}</button>
               <Link href="/#contact" className='bg-[url("/images/btn-background.svg")] bg-no-repeat px-5 py-2 text-white font-semibold rounded-3xl hover:opacity-80 transition'>Contact</Link>
+          </div>
+        </FadeY>
+        <FadeY duration={2} delay={0.3}>
+          <div className='flex mt-5 items-center gap-x-3 justify-center sm:justify-start'>
+            <a href={github} target='_blank'>
+              <img src='/images/github-icon.png' className='h-8 w-8 rounded-full' />
+            </a>
+            <a href={linkedin} target='_blank'>
+              <BsLinkedin color='#ffffff' size={20} />
+            </a>
           </div>
         </FadeY>
     </div>

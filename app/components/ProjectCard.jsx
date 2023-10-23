@@ -36,13 +36,13 @@ export default function ProjectCard({openModal,project,delay}) {
           <div className='relative h-[250px] w-full rounded-2xl'>
             <img src={`/storage/${thumbnile}`} className='h-full w-full rounded-2xl' />
             <div className='absolute bottom-3 left-3 flex gap-x-3'>
-              <a href={githubLink}>
+              <a href={githubLink} target='_blank'>
                 <img src='/images/github-icon.png' className='h-8 w-8 rounded-full' />
               </a>
               {
                 liveLink==="null"?<button onClick={openModal}>
                 <img src='/images/view-icon.png' className='h-8 w-8 rounded-full' />
-              </button>:<a href={liveLink}>
+              </button>:<a href={liveLink} target='_blank'>
                 <img src='/images/view-icon.png' className='h-8 w-8 rounded-full' />
               </a>
               }

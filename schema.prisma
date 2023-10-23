@@ -42,6 +42,16 @@ model Projects {
     technologies String
     @@map("projects")
 }
+model OngoingProject {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    title String
+    desc String
+    features String
+    thumbnile String
+    links String
+    technologies String
+    @@map("ongoing_project")
+}
 
 
 // user: prismatest

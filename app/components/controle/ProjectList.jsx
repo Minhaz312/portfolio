@@ -11,14 +11,17 @@ export default function ProjectList() {
     const [show, setShow] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
     const [selectedProject, setSelectedProject] = useState(null)
+    const [selectNewProjectType, setSelectNewProjectType] = useState("regular")
 
     const [projectList, setProjectList] = useState([])
+    const [onGoingProject, setOngoingProject] = useState(null)
     const [loading,setLoading] = useState(true)
     const [actionLoading,setActionLoading] = useState(false)
 
     const [title,setTitle] = useState("")
     const [desc,setDesc] = useState("")
     const [priority,setPrority] = useState("")
+    const [features,setFeatures] = useState("")
     const [thumbnile,setThumbnile] = useState("")
     const [github,setGithub] = useState("")
     const [live,setLive] = useState("null")
@@ -28,6 +31,7 @@ export default function ProjectList() {
     const [titleUpdated,setTitleUpdated] = useState("")
     const [descUpdated,setDescUpdated] = useState("")
     const [priorityUpdated,setProrityUpdated] = useState("")
+    const [featuresUpdated,setFeaturesUpdated] = useState("")
     const [thumbnileUpdated,setThumbnileUpdated] = useState("")
     const [githubUpdated,setGithubUpdated] = useState("")
     const [liveUpdated,setLiveUpdated] = useState("null")
@@ -51,18 +55,36 @@ export default function ProjectList() {
             setLoading(false)
             setProjectList(null)
         })
+        axios.get("/api/project/get/ongoing",jsonHeader).then(res=>{
+            console.log("ongoing project res: ",res)
+            if(res.status === 200 && res.data.success === true) {
+                setOngoingProject(res.data.data);
+            }else{
+                setOngoingProject(null)
+            }
+        }).catch(err=>{
+            setLoading(false)
+            setOngoingProject(null)
+        })
     }
 
     const handleAddNewProject = () => {
-        if(title.trim()==="" || desc.trim()==="" || priority.trim()==="" || thumbnile.trim()==="" || github.trim()==="" || live.trim()==="" || techNames.trim()==="" || techColors.trim()===""){
+        if(title.trim()==="" || desc.trim()==="" || thumbnile.trim()==="" || github.trim()==="" || live.trim()==="" || techNames.trim()===""){
             alert("Provide all info")
         }else{
             let technologies = `${techNames.trim()}/${techColors.trim()}`;
             const links = `${github.trim()}|${live.trim()}`
-            const data = {title,desc,priority,thumbnile,links,technologies};
-            console.log("data: ",data)
+            let data = {title,desc,thumbnile,links,technologies};
             setActionLoading(true)
-            axios.post("/api/project/add",data,jsonHeader).then(res=>{
+            let url;
+            if(selectNewProjectType==="regular"){
+                url = "/api/project/add"
+                data.priority = priority
+            }else{
+                url = "/api/project/add/ongoing"
+                data.features = features
+            }
+            axios.post(url,data,jsonHeader).then(res=>{
                 if(res.status === 200 && res.data.success === true) {
                     alert("Project Added")
                     getAllProject()
@@ -89,7 +111,11 @@ export default function ProjectList() {
             setSelectedProject(null)
             setShowEditModal(false)
         }else{
-            setSelectedProject(project)
+            if(project==="ongoing"){
+                setSelectedProject({...onGoingProject[0],type:"ongoing"})
+            }else{
+                setSelectedProject({...project,type:"regular"})
+            }
             setShowEditModal(true)
         };
     }
@@ -103,8 +129,11 @@ export default function ProjectList() {
         if(descUpdated.trim()!==""){
             updatedData.desc = descUpdated
         }
-        if(priorityUpdated.trim()!==""){
+        if(priorityUpdated.trim()!=="" && selectedProject.type==="regular"){
             updatedData.priority = priorityUpdated
+        }
+        if(featuresUpdated.trim()!=="" && selectedProject.type==="ongoing"){
+            updatedData.features = featuresUpdated
         }
         if(thumbnileUpdated.trim()!==""){
             updatedData.thumbnile = thumbnileUpdated
@@ -118,21 +147,15 @@ export default function ProjectList() {
         if(liveUpdated.trim()==="" && githubUpdated.trim()!==""){
             updatedData.links = githubUpdated+"|"+selectedProject.links.split("|")[1]
         }
-        if(techNamesUpdated.trim()!=="" && techColorsUpdated.trim()!==""){
-            const nameList = techNamesUpdated+"/"+techColorsUpdated
-            updatedData.technologies = nameList
+        if(techNamesUpdated.trim()!==""){
+            updatedData.technologies = techNamesUpdated
         }
-        if(techNamesUpdated.trim()!=="" && techColorsUpdated.trim()===""){
-            const nameList = techNamesUpdated+"/"+selectedProject.technologies.split("/")[1]
-            updatedData.technologies = nameList
-        }
-        if(techNamesUpdated.trim()==="" && techColorsUpdated.trim()!==""){
-            const nameList = selectedProject.technologies.split("/")[0]+"/"+techColorsUpdated
-            updatedData.technologies = nameList
-        }
-        console.log("updated data: ",updatedData)
         setActionLoading(true)
-        axios.put("/api/project/update",updatedData,jsonHeader).then(res=>{
+        let url = "/api/project/update";
+        if(selectedProject.type==="ongoing"){
+            url = "/api/project/update/ongoing"
+        }
+        axios.put(url,updatedData,jsonHeader).then(res=>{
             if(res.status === 200 && res.data.success === true) {
                 getAllProject()
                 alert("Updated successfully")
@@ -146,9 +169,13 @@ export default function ProjectList() {
         })
     }
     
-    const handleDeleteProject = id => {
+    const handleDeleteProject = (id,type="regular") => {
         setActionLoading(true)
-        axios.delete(`/api/project/delete/${id}`,jsonHeader).then(res=>{
+        let url = `/api/project/delete/${id}`
+        if(type==="ongoing"){
+            url = `/api/project/delete/ongoing`
+        }
+        axios.delete(url,jsonHeader).then(res=>{
             if(res.status === 200 && res.data.success === true) {
                 getAllProject()
                 alert("Deleted successfully")
@@ -190,13 +217,19 @@ export default function ProjectList() {
         )
     }
 
+
   return (
     <>
         <Modal show={show} loading={actionLoading} onHide={handleCloseModal} onAction={handleAddNewProject} btnTitle="Add" title='Add New Project' className=''>
+            <div className='mb-3'>
+                <button className='px-2 py-1 bg-slate-700 text-white mr-1' onClick={()=>setSelectNewProjectType("ongoing")}>Ongoing</button>
+                <button className='px-2 py-1 bg-slate-700 text-white mr-1' onClick={()=>setSelectNewProjectType("regular")}>Regular</button>
+            </div>
             <div className='grid grid-cols-2 gap-x-3'>
                 <div>
                     <input type='text' onChange={e=>setTitle(e.target.value)} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Title' />
-                    <input type='text' onChange={e=>setPrority(e.target.value)} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Priority' />
+                    {selectNewProjectType==="regular"&&<input type='text' onChange={e=>setPrority(e.target.value)} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Priority' />}
+                    {selectNewProjectType==="ongoing"&&<input type='text' onChange={e=>setFeatures(e.target.value)} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Features' />}
                     <input type='text' onChange={e=>setGithub(e.target.value)} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Github Link' />
                     <input type='text' onChange={e=>setLive(e.target.value)} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Live Link' />
                 </div>
@@ -213,15 +246,19 @@ export default function ProjectList() {
                 <div className='grid grid-cols-2 gap-x-3'>
                     <div>
                         <input type='text' onChange={e=>setTitleUpdated(e.target.value)} defaultValue={selectedProject.title} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Title' />
-                        <input type='text' onChange={e=>setProrityUpdated(e.target.value)} defaultValue={selectedProject.priority} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Priority' />
+                        {selectedProject.type==="regular"&&(
+                            <input type='text' onChange={e=>setProrityUpdated(e.target.value)} defaultValue={selectedProject.priority} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Priority' />
+                        )}
+                        {selectedProject.type==="ongoing"&&(
+                            <input type='text' onChange={e=>setFeaturesUpdated(e.target.value)} defaultValue={selectedProject.features} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Features' />
+                        )}
                         <input type='text' onChange={e=>setGithubUpdated(e.target.value)} defaultValue={selectedProject.links.split("|")[0]} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Github Link' />
                         <input type='text' onChange={e=>setLiveUpdated(e.target.value)} defaultValue={selectedProject.links.split("|")[1]!=="null"?selectedProject.links.split("|")[1]:""} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Live Link' />
                     </div>
                     <div>
                         <img src={`/storage/${selectedProject.thumbnile}`} className='h-[140px] w-auto mb-2' />
                         <input type='text' onChange={e=>setThumbnileUpdated(e.target.value)} defaultValue={selectedProject.thumbnile} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Thumbnile Image' />
-                        <input type='text' onChange={e=>setTechNamesUpdated(e.target.value)} defaultValue={selectedProject.technologies.split("/")[0]} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Tech Name List' />
-                        <input type='text' onChange={e=>setTechColorsUpdated(e.target.value)} defaultValue={selectedProject.technologies.split("/")[1]} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Tech Color List' />
+                        <input type='text' onChange={e=>setTechNamesUpdated(e.target.value)} defaultValue={selectedProject.technologies} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Tech Name List' />
                     </div>
                 </div>
                 <textarea rows={8} onChange={e=>setDescUpdated(e.target.value)} defaultValue={selectedProject.desc} className='bg-slate-700 mb-3 px-2 py-3 w-full' placeholder='Enter Description'></textarea>
@@ -236,12 +273,24 @@ export default function ProjectList() {
                 <thead className='bg-slate-700'>
                     <tr>
                         <th className='py-3'>Title</th>
-                        <th className='py-3'>Desc</th>
+                        <th className='py-3 w-[120px]'>Priority</th>
                         <th className='py-3'>Thumbnile</th>
                         <th className='py-3'>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {onGoingProject!==null&&onGoingProject.length>0&&(
+                        <tr>
+                        <td>{onGoingProject[0].title}</td>
+                        <td className='text-[12px]'>{onGoingProject[0].features} features</td>
+                        <td><img src={`/storage/${onGoingProject[0].thumbnile}`} className='w-auto h-[50px] object-cover' /></td>
+                        <td className='py-3 pl-2'>
+                            <button className='px-3 py-2 text-white font-semibold text-md' onClick={handleCloseEditModal.bind(this,"ongoing")}><BiEdit /></button>
+                            <button className='px-3 py-2 text-red-600 font-semibold text-md' onClick={handleDeleteProject.bind(this,0,"ongoing")}>{actionLoading?"deleting...":<FaTrash />}</button>
+                        </td>
+                    </tr>
+                    )}
+                    
                     {
                         projectList.map((item,i)=><tr key={i} className='even:bg-slate-800 hover:bg-slate-900 transition-all cursor-pointer'>
                         <td className='py-3 pl-2'>{item.title}</td>
