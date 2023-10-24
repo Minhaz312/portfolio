@@ -26,7 +26,7 @@ export default function Hero({about}) {
   }, []);
   return (
     <section>
-        <Image src='/images/hero-bg-image.png' width={1000} height={1000} className='max-h-screen w-full object-cover -z-10 absolute top-0 left-0 right-0 bottom-0' />
+        <img src='/images/hero-bg-image.png' className='max-h-screen w-full object-cover -z-10 absolute top-0 left-0 right-0 bottom-0' />
         <Navbar scrollPosition={scrollPosition} />
         <div className="w-full mx-auto px-3 md:w-10/12 lg:w-10/12 xl:w-8/12 md:px-0 sm:px-5">
           <div className='flex flex-row '>
